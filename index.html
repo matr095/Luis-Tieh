@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<title>Luis Tieh (2010) - Remastered - by MatR</title>
+		<style>
+			body { margin: 0; margin:auto; background: #224488; }
+			canvas { display: block; margin:auto; border: 2px solid black;}
+		</style>
+	</head>
+	<body>
+		<canvas id="cnv" width="800" height="600"></canvas>
+		<script>
+			var audio = new Audio('sons/plaines.aif');
+			audio.play();
+			var loaded = false;
+			var cnv = document.querySelector('#cnv');
+			var ctx = cnv.getContext('2d');
+			//chargement des images
+			var lvl1 = new Image();
+			lvl1.src = "img/lvl1.jpg"
+			lvl1.onload = function() { 
+				loaded = true;
+			}
+			//position du wallpaper
+			var x = 0;
+			var y = 0;
+
+			//positition des barres
+			var bar1posx = 0;
+			var bar1posy = 400;
+			var bar1sizex = 150;
+			var bar1sizey = 50;
+
+			var bar2posx = 300;
+			var bar2posy = 400;
+			var bar2sizex = 150;
+			var bar2sizey = 50;
+
+
+			//position du perso
+			var posx = 10;
+			var posy = 30;
+
+			//les evenements 
+			document.addEventListener('keydown', function(e) {
+				if(e.key == " ") {
+					posy -= 10;
+				}
+				if (e.key == "ArrowLeft") {
+					posx -= 10;
+				}
+				if (e.key == "ArrowRight") {
+					posx += 10;
+				}
+			})
+
+
+			function animate() {
+				if(loaded) {
+					x -= 1;
+					if(x <= -800) {
+						x = 0;
+					}
+					ctx.drawImage(lvl1, x, y);
+					
+					//gravite perso
+					if 
+					  (
+					   (
+						(bar1posx <= posx + 10 && posx + 10 <= bar1posx + bar1sizex)
+						 && 
+						(bar1posy <= posy + 70 && posy + 70 <= bar1posy + bar1sizey)
+					   ) 
+						 || 
+					   (
+						(bar2posx <= posx + 10 && posx + 10 <= bar2posx + bar2sizex)
+						 && 
+						(bar2posy <= posy + 70 && posy + 70 <= bar2posy + bar2sizey)
+					   ) 
+					  )
+					{
+						posy += 0;
+					} else {
+						posy += 1;
+						if(posy >= 600) {
+							posx = 10;
+							posy = 30;
+						}
+					}
+					
+
+					//placement personnage
+					ctx.fillStyle = "yellow"
+					ctx.fillRect(posx, posy, 10, 70)
+
+					//placement briques
+					ctx.fillStyle = "red";
+					ctx.fillRect(bar1posx, bar1posy, bar1sizex, bar1sizey);
+					ctx.fillStyle = "green";
+					ctx.fillRect(bar2posx, bar2posy, bar2sizex, bar2sizey);
+
+				}
+				requestAnimationFrame(animate);
+			}
+			requestAnimationFrame(animate);
+
+			
+
+		</script>
+	</body>
+</html>
