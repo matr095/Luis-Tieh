@@ -11,18 +11,32 @@
 		<script>
 			var audio = new Audio('sons/plaines.aif');
 			audio.play();
-			var loaded = false;
+			var loaded1 = false;
 			var cnv = document.querySelector('#cnv');
 			var ctx = cnv.getContext('2d');
 			//chargement des images
 			var lvl1 = new Image();
 			lvl1.src = "img/lvl1.jpg"
+			var lvl2 = new Image();
+			lvl2.src = "img/lvl2.jpg"
+			var lvl3 = new Image();
+			lvl3.src = "img/lvl3.jpg"
 			lvl1.onload = function() { 
-				loaded = true;
+				loaded1 = true;
+			}
+			lvl2.onload = function() { 
+				loaded2 = true;
+			}
+			lvl3.onload = function() { 
+				loaded3 = true;
 			}
 			//position du wallpaper
-			var x = 0;
-			var y = 0;
+			var x1 = 0;
+			var y1 = 0;
+			var x2 = 0;
+			var y2 = 0;
+			var x3 = 0;
+			var y3 = 0;
 
 			//position des limites
 			var limit1posx = 0
@@ -35,21 +49,13 @@
 			var limit2sizex = 10
 			var limit2sizey= 600
 
-			//positition des barres
-			var bar1posx = 0;
-			var bar1posy = 400;
-			var bar1sizex = 150;
-			var bar1sizey = 50;
+			var level = 1;
 
-			var bar2posx = 300;
-			var bar2posy = 400;
-			var bar2sizex = 150;
-			var bar2sizey = 50;
+			function displayBricks() {
+				
+				
+			}
 			
-			var bar3posx = 500;
-			var bar3posy = 500;
-			var bar3sizex = 550;
-			var bar3sizey = 20;
 
 
 			//position du perso
@@ -71,12 +77,84 @@
 
 
 			function animate() {
-				if(loaded) {
-					x -= 1;
-					if(x <= -800) {
-						x = 0;
+				//positition des barres
+				if(level == 1) {
+					var bar1posx = 0;
+					var bar1posy = 400;
+					var bar1sizex = 150;
+					var bar1sizey = 50;
+
+					var bar2posx = 300;
+					var bar2posy = 400;
+					var bar2sizex = 150;
+					var bar2sizey = 50;
+					
+					var bar3posx = 500;
+					var bar3posy = 500;
+					var bar3sizex = 550;
+					var bar3sizey = 20;
+				} else if (level == 2) {
+					var bar1posx = 0;
+					var bar1posy = 500;
+					var bar1sizex = 500;
+					var bar1sizey = 30;
+
+					var bar2posx = 700;
+					var bar2posy = 300;
+					var bar2sizex = 100;
+					var bar2sizey = 30;
+					
+					var bar3posx = 600;
+					var bar3posy = 450;
+					var bar3sizex = 100;
+					var bar3sizey = 200;
+				} else {
+					var bar1posx = 0;
+					var bar1posy = 250;
+					var bar1sizex = 150;
+					var bar1sizey = 500;
+
+					var bar2posx = 300;
+					var bar2posy = 250;
+					var bar2sizex = 150;
+					var bar2sizey = 500;
+					
+					var bar3posx = 500;
+					var bar3posy = 500;
+					var bar3sizex = 550;
+					var bar3sizey = 20;
+				}
+				if(loaded1) {
+					if(level == 1) {
+						x1 -= 1;
+						if(x1 <= -800) {
+							x1 = 0;
+						}
+					} else if(level == 2) {
+						y2 -= 1;
+						if(y2 <= -600) {
+							y2 = 0;
+						}
+					} else {
+						x3 -= 1;
+						if(x3 <= -800) {
+							x3 = 0;
+						}
 					}
-					ctx.drawImage(lvl1, x, y);
+					
+					if(level == 1) {
+						ctx.fillRect(0,0,800,600)
+						ctx.drawImage(lvl1, x1, y1);
+					}
+						
+					if(level == 2) {
+						ctx.fillRect(0,0,800,600)
+						ctx.drawImage(lvl2, x2, y2);
+					}
+					if(level == 3) {
+						ctx.fillRect(0,0,800,600)
+						ctx.drawImage(lvl3, x3, y3);
+					}
 					
 					//gravite perso
 					if 
@@ -126,7 +204,12 @@
 							 && 
 							(limit2posy <= posy + 70 && posy + 70 <= limit2posy + limit2sizey)
 						   )  {
-						  posx -= 10;
+							if(level < 3) {
+								posx = 10
+								posy = 10;
+								level += 1
+							}
+						  
 						   
 					}
 					
