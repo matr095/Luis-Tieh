@@ -24,6 +24,17 @@
 			var x = 0;
 			var y = 0;
 
+			//position des limites
+			var limit1posx = 0
+			var limit1posy = 0
+			var limit1sizex = 10
+			var limit1sizey= 600
+
+			var limit2posx = 790
+			var limit2posy = 0
+			var limit2sizex = 10
+			var limit2sizey= 600
+
 			//positition des barres
 			var bar1posx = 0;
 			var bar1posy = 400;
@@ -34,6 +45,11 @@
 			var bar2posy = 400;
 			var bar2sizex = 150;
 			var bar2sizey = 50;
+			
+			var bar3posx = 500;
+			var bar3posy = 500;
+			var bar3sizex = 550;
+			var bar3sizey = 20;
 
 
 			//position du perso
@@ -76,15 +92,42 @@
 						 && 
 						(bar2posy <= posy + 70 && posy + 70 <= bar2posy + bar2sizey)
 					   ) 
+					    || 
+					   (
+						(bar3posx <= posx + 10 && posx + 10 <= bar3posx + bar3sizex)
+						 && 
+						(bar3posy <= posy + 70 && posy + 70 <= bar3posy + bar3sizey)
+					   ) 
 					  )
 					{
 						posy += 0;
-					} else {
+					} 
+					
+					else {
 						posy += 1;
 						if(posy >= 600) {
 							posx = 10;
 							posy = 30;
 						}
+					}
+
+					if (
+
+						   (
+							(limit1posx <= posx + 10 && posx + 10 <= limit1posx + limit1sizex)
+							 && 
+							(limit1posy <= posy + 70 && posy + 70 <= limit1posy + limit1sizey)
+						   ) 
+						) {
+						posx += 10;
+					}
+					else if(
+							(limit2posx <= posx + 10 && posx + 10 <= limit2posx + limit2sizex)
+							 && 
+							(limit2posy <= posy + 70 && posy + 70 <= limit2posy + limit2sizey)
+						   )  {
+						  posx -= 10;
+						   
 					}
 					
 
@@ -97,6 +140,12 @@
 					ctx.fillRect(bar1posx, bar1posy, bar1sizex, bar1sizey);
 					ctx.fillStyle = "green";
 					ctx.fillRect(bar2posx, bar2posy, bar2sizex, bar2sizey);
+					ctx.fillStyle = "yellow";
+					ctx.fillRect(bar3posx, bar3posy, bar3sizex, bar3sizey);
+					ctx.fillStyle = "white";
+					ctx.fillRect(limit1posx, limit1posy, limit1sizex, limit1sizey);
+					ctx.fillStyle = "white";
+					ctx.fillRect(limit2posx, limit2posy, limit2sizex, limit2sizey);
 
 				}
 				requestAnimationFrame(animate);
